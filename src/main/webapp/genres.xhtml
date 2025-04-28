@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Administrar Géneros Literarios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+        body { background-color: #f7f0ff; font-family: 'Georgia', serif; color: #333; }
+        .header-title { color: #7d5fff; margin-top: 20px; font-weight: bold; }
+        .btn-morado { background-color: #7d5fff; border-color: #7d5fff; color: white; }
+        .btn-morado:hover { background-color: #5a37d4; border-color: #5a37d4; }
+        .card-validation { background: #fff; border: 2px solid #7d5fff; padding: 10px; margin-top: 15px; border-radius: 8px; }
+        .text-danger { font-size: 0.85em; }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="container">
+
+        <div class="text-center">
+            <h1 class="header-title">Administrar Géneros</h1>
+            <h:form>
+                <h:commandButton value="Regresar al Inicio" action="index.xhtml" styleClass="btn btn-morado mt-2"/>
+            </h:form>
+        </div>
+
+        <!-- Mensajes Globales -->
+        <h:messages globalOnly="true" layout="list" showDetail="true" styleClass="alert alert-info mt-3"/>
+
+        <!-- Formulario Agregar/Editar Género -->
+        <h:form id="formGenero">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Agregar / Editar Género</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <h:outputLabel value="Nombre del Género:"/>
+                            <h:inputText id="nombreGenero" value="#{genreBean.genre.genreName}" required="true" requiredMessage="El nombre del género es obligatorio." styleClass="form-control"/>
+                            <h:message for="nombreGenero" styleClass="text-danger"/>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h:commandButton value="Agregar Género" action="#{genreBean.addGenre}" styleClass="btn btn-morado mr-2"/>
+                        <h:commandButton value="Actualizar Género" action="#{genreBean.updateGenre}" styleClass="btn btn-success mr-2"/>
+                        <h:commandButton value="Eliminar Género" action="#{genreBean.deleteGenre}" styleClass="btn btn-danger"/>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <!-- Tabla de Géneros Existentes -->
+        <h:form id="tablaGeneros">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h:dataTable value="#{genreBean.genres}" var="g" styleClass="table table-bordered table-hover">
+                        <h:column>
+                            <f:facet name="header">ID</f:facet>
+                            #{g.idGenre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Nombre del Género</f:facet>
+                            #{g.genreName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Acciones</f:facet>
+                            <h:commandButton value="Editar" actionListener="#{genreBean.setGenre(g)}" styleClass="btn btn-morado btn-sm" render="formGenero"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+        </h:form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</h:body>
+</html>

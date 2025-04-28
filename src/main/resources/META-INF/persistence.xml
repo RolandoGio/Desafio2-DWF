@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <persistence-unit name="DirectorioAutoresPU" transaction-type="JTA">
+        <jta-data-source>jdbc/AuthorsDS</jta-data-source>
+
+        <!-- Registrar explícitamente las entidades -->
+        <class>entity.Author</class>
+        <class>entity.LiteraryGenre</class>
+        <class>entity.AuditLog</class>
+
+        <properties>
+            <!-- Dialecto de Hibernate para SQL Server -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
+
+            <!-- Mostrar en consola las consultas -->
+            <property name="hibernate.show_sql" value="true"/>
+
+            <!-- Formatear las consultas mostradas -->
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!-- Validar esquema de la base de datos, no crear ni borrar -->
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+
+            <!-- Evitar warnings de versiones -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
